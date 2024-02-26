@@ -1,5 +1,3 @@
-import 'dart:developer' as developer;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_socketshare/utils/filesmanager.dart';
@@ -115,7 +113,6 @@ class _SendingPageState extends State<SendingPage> {
               FilePicker.platform.pickFiles().then((result) {
                 if (null != result) {
                   String filePath = result.files.single.path!;
-                  developer.log(filePath);
                   context.read<FileBloc>().add(AddFile(filePath: filePath));
                 }
               });

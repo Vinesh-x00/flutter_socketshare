@@ -10,6 +10,7 @@ import 'package:meta/meta.dart';
 
 import 'package:flutter_socketshare/models.dart';
 import 'package:flutter_socketshare/utils/filesmanager.dart';
+import 'package:flutter_socketshare/utils/generators.dart';
 
 part 'file_event.dart';
 part 'file_state.dart';
@@ -64,17 +65,18 @@ class FileBloc extends Bloc<FileEvent, FileState> {
   }
 
   Future<void> _sendFile(SendFile event, Emitter<FileState> emit) async {
-    developer.log("sending executed", name: "_sendFile");
     String path = state.sended[event.index].filepath;
     String extenstion = state.sended[event.index].extenstion;
     final file = File(path);
     final int size = file.lengthSync();
     final stream = file.openRead();
 
+    String id = getRandomId(5);
+
     isSomeThingSending = true;
     Message startMsg = Message(
       signal: Signals.start,
-      id: "ferfe",
+      id: id,
       filepath: path,
       extenstion: extenstion,
     );
@@ -90,7 +92,6 @@ class FileBloc extends Bloc<FileEvent, FileState> {
         break;
       }
       currentSize += packet.length;
-      developer.log("$currentSize / $size");
       percentage = currentSize / size;
 
       percentage = percentage >= 1.0 ? 1.0 : percentage;
@@ -101,11 +102,11 @@ class FileBloc extends Bloc<FileEvent, FileState> {
     }
 
     if (isCanceled) {
-      Message cancelMsg = Message(signal: Signals.cancel, id: "hhu");
+      Message cancelMsg = Message(signal: Signals.cancel, id: id);
       _msgSocket!.write(jsonEncode(cancelMsg.toJson()));
       emit(state.copyWithRemovedSend(index: event.index));
     } else {
-      Message endMsg = Message(signal: Signals.end, id: "d");
+      Message endMsg = Message(signal: Signals.end, id: id);
       _msgSocket!.write(jsonEncode(endMsg.toJson()));
       emit(state.copyWithNewFileTstate(
           index: event.index, ts: FileTState.ended));

@@ -66,13 +66,11 @@ class _ConnectionPageState extends State<ConnectionPage> {
                 if (null != barcode.rawValue) {
                   try {
                     Map<String, dynamic> json = jsonDecode(barcode.rawValue!);
-                    developer.log('${json["ipaddr"]} : ${json["port"]}');
 
                     if (isValidHost(json["ipaddr"] ?? "") &&
                         isValidPort(json["port"] ?? "") &&
                         !isConEventSended) {
                       isConEventSended = true;
-                      developer.log("form valited");
                       context.read<FileBloc>().add(Connect(
                           host: json["ipaddr"], port: int.parse(json["port"])));
                     }
@@ -80,7 +78,6 @@ class _ConnectionPageState extends State<ConnectionPage> {
                     developer.log(err.toString());
                   }
                 }
-                debugPrint('Barcode found! ${barcode.rawValue}');
               }
             },
           ),
