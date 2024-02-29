@@ -1,7 +1,7 @@
 
 # SocketShare
 
-![logo](./assets/ic_socketshare.png)
+![logo](./doc/icon.png)
 
 SocketShare is an Android application built with Flutter that allows you to send files to your PC even without internet connection. With SocketShare, you can send any type of file. 
 
@@ -16,6 +16,12 @@ Key features
 
 This app require specific permissions such as storage and camera.
 
+## Demo
+
+
+When the server disconncted, the app show red color
+
+![logo](./doc/disconnect.jpg)
 
 ## Installation
 
