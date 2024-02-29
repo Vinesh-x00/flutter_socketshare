@@ -18,6 +18,7 @@ This app require specific permissions such as storage and camera.
 
 ## Demo
 
+https://github.com/Vinesh-x00/flutter_socketshare/assets/158764376/b60fdc31-0318-4c06-b33e-3b220a49a827
 
 When the server disconncted, the app show red color
 
