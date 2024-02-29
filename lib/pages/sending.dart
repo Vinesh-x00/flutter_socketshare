@@ -12,12 +12,31 @@ class IconGiver extends StatelessWidget {
   final String ext;
   IconGiver({super.key, required this.ext});
 
-  final imagesExt = ["png", "jpg", "jpeg"];
+  final imagesExt = ["png", "jpg", "jpeg", "gif", "bmp", "webp", "svg"];
+  final videoext = ["mp4", "mov", "avi", "wmv", "avchd", "mpeg", "mod"];
+  final documentExt = [
+    "pdf",
+    "doc",
+    "odt",
+    "xlsx",
+    "pptx",
+    "html",
+    "xls",
+    "ppt",
+    "txt"
+  ];
+  final archiveExt = ["zip", "rar", "tar", "ios", "gz", "7z"];
 
   @override
   Widget build(BuildContext context) {
     if (imagesExt.contains(ext)) {
       return const Icon(Icons.image);
+    } else if (videoext.contains(ext)) {
+      return const Icon(Icons.video_file);
+    } else if (documentExt.contains(ext)) {
+      return const Icon(Icons.edit_document);
+    } else if (archiveExt.contains(ext)) {
+      return const Icon(Icons.folder_zip);
     }
     return const Icon(Icons.question_mark);
   }
